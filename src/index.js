@@ -12,13 +12,11 @@ const PATH_TO_TEST = '../src/';
 // Application logic for the test runner
 const tests = {};
 
-tests.init = async function () {
+tests.init = async function (homePath) {
 
   console.log('Test Runner inited ...');
-  console.log("__dirname", __dirname);
-
-  const homePath = path.join(__dirname, PATH_TO_TEST);
   console.log("homePath", homePath);
+
   const testingFilePaths = await walkDirectory(homePath);
   console.log("testingFilePaths", testingFilePaths);
 
