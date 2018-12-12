@@ -14,9 +14,12 @@ const tests = {};
 
 tests.init = async function () {
 
+  console.log('Test Runner inited ...');
 
   const homePath = path.join(__dirname, PATH_TO_TEST);
+  console.log("homePath", homePath);
   const testingFilePaths = await walkDirectory(homePath);
+  console.log("testingFilePaths", testingFilePaths);
 
   tests.units = testingFilePaths.map(filePath => {
     const subPath = filePath.substr(homePath.length, 10000);
