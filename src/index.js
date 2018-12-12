@@ -6,7 +6,7 @@ import walkDirectory from './utils/walkDirectory';
 
 // Override the NODE_ENV variable
 process.env.NODE_ENV = 'testing';
-const PATH_TO_TEST = './src/';
+const PATH_TO_TEST = '../src/';
 
 
 // Application logic for the test runner
