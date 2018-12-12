@@ -1,0 +1,19 @@
+{
+  "name": "@jmaguirrei/tester",
+  "version": "0.0.1",
+  "description": "Custom test runner",
+  "main": "dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jmaguirrei/tester.git"
+  },
+  "scripts": {
+    "build": "parcel build ./src/index.js --target node",
+    "git_": "git add . && git commit -m 'Initial commit' && git push",
+    "pack_": "npm version patch && npm run build && npm publish --access public",
+    "git-pack": "npm run git_ && npm run pack_",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "José Manuel Aguirre",
+  "license": "MIT"
+}
