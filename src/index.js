@@ -6,7 +6,7 @@ import walkDirectory from './utils/walkDirectory';
 
 // Override the NODE_ENV variable
 process.env.NODE_ENV = 'testing';
-const PATH_TO_TEST = '../src/';
+const PATH_TO_TEST = './src/';
 
 
 // Application logic for the test runner
@@ -15,6 +15,7 @@ const tests = {};
 tests.init = async function () {
 
   console.log('Test Runner inited ...');
+  console.log("__dirname", __dirname);
 
   const homePath = path.join(__dirname, PATH_TO_TEST);
   console.log("homePath", homePath);
@@ -46,5 +47,5 @@ tests.init = async function () {
 
 };
 
-tests.init();
+export default tests;
 
