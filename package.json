@@ -12,8 +12,12 @@
     "git_": "git add . && git commit -m 'Initial commit' && git push",
     "pack_": "npm version patch && npm run build && npm publish --access public",
     "git-pack": "npm run git_ && npm run pack_",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node tests.js"
   },
   "author": "José Manuel Aguirre",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "babel-preset-env": "^1.7.0",
+    "babel-register": "^6.26.0"
+  }
 }

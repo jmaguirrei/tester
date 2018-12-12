@@ -1,13 +1,13 @@
 
-import countTests from './countTests';
-import produceTestReport from './produceTestReport';
-import getFunctionParams from './getFunctionParams';
-import formatters from './formatters';
+const countTests = require('./countTests');
+const produceTestReport = require('./produceTestReport');
+const getFunctionParams = require('./getFunctionParams');
+const formatters = require('./formatters');
 
 const green = '\x1b[32m%s\x1b[0m';
 
 // Run all the tests, collecting the errors and successes
-export default function runTests(tests) {
+module.exports = function runTests(tests) {
 
   // console.clear();
   let errors = [];
@@ -78,6 +78,6 @@ export default function runTests(tests) {
     });
   });
 
-}
+};
 
 

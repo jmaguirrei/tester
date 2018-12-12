@@ -1,10 +1,10 @@
 
-import formatters from './formatters';
+const formatters = require('./formatters');
 
 const red = '\x1b[31m%s\x1b[0m';
 
 // Product a test outcome report
-export default function produceTestReport({ limit, successes, errors }) {
+module.exports = function produceTestReport({ limit, successes, errors }) {
 
   const now = new Date().toJSON();
   const dateStr = now.substr(0, 10) + ' ' + now.substr(11, 8);
@@ -53,5 +53,5 @@ export default function produceTestReport({ limit, successes, errors }) {
   // formatters.horizontalLine();
   // formatters.verticalSpace(2);
 
-}
+};
 

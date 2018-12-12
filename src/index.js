@@ -1,49 +1,54 @@
 
 // Dependencies
-import path from 'path';
-import runTests from './utils/runTests';
-import walkDirectory from './utils/walkDirectory';
-
-// Override the NODE_ENV variable
-process.env.NODE_ENV = 'testing';
-const PATH_TO_TEST = '../src/';
-
+const runTests = require('./utils/runTests');
+const walkDirectory = require('./utils/walkDirectory');
 
 // Application logic for the test runner
 const tests = {};
 
-tests.init = async function (homePath) {
+tests.init = function (homePath) {
 
-  console.log('Test Runner inited ...');
   console.log("homePath", homePath);
+  console.log('Test Runner inited ...');
 
-  const testingFilePaths = await walkDirectory(homePath);
-  console.log("testingFilePaths", testingFilePaths);
+  walkDirectory(homePath)
+  .then(testingFilePaths => {
 
-  tests.units = testingFilePaths.map(filePath => {
-    const subPath = filePath.substr(homePath.length, 10000);
-    const relativePath = PATH_TO_TEST + subPath;
-    const folderPath = subPath.split('__tests__')[0];
-    const fileName = relativePath.substr(relativePath.lastIndexOf('/') + 1, 1000);
-    const testsContainerObject = require(relativePath).default;
-    const runnables = Object.keys(testsContainerObject).map(key => {
+    tests.units = testingFilePaths.map(filePath => {
+      console.log("filePath", filePath);
+      // const subPath = filePath.substr(homePath.length, 10000);
+      // console.log("subPath", subPath);
+      // const relativePath = PATH_TO_TEST + subPath;
+      // const folderPath = subPath.split('__tests__')[0];
+      // const fileName = filePath.substr(relativePath.lastIndexOf('/') + 1, 1000);
+      const folderPath = filePath.split('__tests__')[0];
+      console.log("folderPath", folderPath);
+      // console.log("folderPath", folderPath);
+      const fileName = filePath.substr(filePath.lastIndexOf('/') + 1, 1000);
+      console.log("fileName", fileName);
+      // console.log("fileName", fileName);
+      const testsContainerObject = require(filePath).default;
+      console.log("testsContainerObject", testsContainerObject);
+      const runnables = Object.keys(testsContainerObject).map(key => {
+        return {
+          name: key,
+          fn: testsContainerObject[key],
+        };
+      });
       return {
-        name: key,
-        fn: testsContainerObject[key],
+        folderPath,
+        fileName,
+        runnables,
       };
     });
-    return {
-      folderPath,
-      fileName,
-      runnables,
-    };
+    runTests(tests);
+    // process.exit(0);
+
   });
 
 
-  runTests(tests);
-  // process.exit(0);
 
 };
 
-export default tests;
+module.exports = tests;
 

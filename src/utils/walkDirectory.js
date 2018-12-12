@@ -1,7 +1,7 @@
 
 
-import fs from 'fs';
-import path from 'path';
+const fs = require('fs');
+const path = require('path');
 
 // Patterns
 const patterns = {
@@ -47,7 +47,7 @@ const statAsync = function (file) {
 
 
 // WalkDir
-export default function walkDir(dir) {
+module.exports = function walkDir(dir) {
   return readdirAsync(dir)
   .then(list => {
     return Promise.all(list.map(file => {
@@ -66,6 +66,6 @@ export default function walkDir(dir) {
   })
   .catch(console.log);
 
-}
+};
 
 
