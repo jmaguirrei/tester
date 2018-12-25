@@ -1,44 +1,25 @@
 
 // Dependencies
+const getUnits = require('./utils/getUnits');
 const runTests = require('./utils/runTests');
 const walkDirectory = require('./utils/walkDirectory');
 
-// Application logic for the test runner
-const tests = {};
-
-tests.init = function (homePath) {
+module.exports.init = function (pathsObject) {
 
   console.log('Test Runner inited ...');
 
-  walkDirectory(homePath)
-  .then(testingFilePaths => {
+  Object.keys(pathsObject).map(keyPath => {
 
-    tests.units = testingFilePaths.map(filePath => {
+    const homePath = pathsObject[keyPath];
 
-      const folderPath = filePath.split('__tests__')[0];
-      const fileName = filePath.substr(filePath.lastIndexOf('/') + 1, 1000);
-      const testsContainerObject = require(filePath).default;
-
-      const runnables = Object.keys(testsContainerObject).map(key => {
-        return {
-          name: key,
-          fn: testsContainerObject[key],
-        };
-      });
-      return {
-        folderPath,
-        fileName,
-        runnables,
-      };
-    });
-    runTests(tests);
-    // process.exit(0);
-
+    return walkDirectory(homePath)
+    .then(testingFilePaths => {
+      const units = getUnits(testingFilePaths);
+      runTests(keyPath, units);
+    })
+    .catch(console.log);
   });
 
 
-
 };
-
-module.exports = tests;
 

@@ -4,7 +4,7 @@ const formatters = require('./formatters');
 const red = '\x1b[31m%s\x1b[0m';
 
 // Product a test outcome report
-module.exports = function produceTestReport({ limit, successes, errors }) {
+module.exports = function produceTestReport({ keyPath, limit, successes, errors }) {
 
   const now = new Date().toJSON();
   const dateStr = now.substr(0, 10) + ' ' + now.substr(11, 8);
@@ -12,11 +12,10 @@ module.exports = function produceTestReport({ limit, successes, errors }) {
   formatters.verticalSpace(2);
   formatters.horizontalLine();
   formatters.verticalSpace(1);
+  formatters.centered(keyPath.toUpperCase());
   formatters.centered('TEST REPORT');
   formatters.centered(dateStr);
-  formatters.verticalSpace(1);
-  formatters.horizontalLine();
-  formatters.verticalSpace(1);
+  formatters.verticalSpace(2);
   formatters.centered(`Total Tests --> ${String(limit).padStart(3, ' ')}`);
   formatters.centered(`       Pass --> ${String(successes).padStart(3, ' ')}`);
   formatters.centered(`       Fail --> ${String(errors.length).padStart(3, ' ')}`);
@@ -47,11 +46,8 @@ module.exports = function produceTestReport({ limit, successes, errors }) {
     console.groupEnd();
   }
   formatters.horizontalLine();
+  formatters.horizontalLine();
   formatters.verticalSpace(2);
-  // formatters.horizontalLine();
-  // formatters.centered('END TEST REPORT');
-  // formatters.horizontalLine();
-  // formatters.verticalSpace(2);
 
 };
 
