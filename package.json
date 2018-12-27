@@ -3,22 +3,21 @@
   "version": "0.0.9",
   "description": "Custom test runner",
   "main": "dist/index.js",
+  "author": "José Manuel Aguirre",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/jmaguirrei/tester.git"
   },
   "scripts": {
-    "build": "parcel build ./src/index.js --target node",
-    "git_": "git add . && git commit -m 'Initial commit' && git push",
-    "pack_": "npm version patch && npm run build && npm publish --access public",
-    "git-pack": "npm run git_ && npm run pack_",
+    "git-pack": "git add . && git commit -m 'Initial commit' && git push && npm version patch && parcel build ./src/index.js --target node && npm publish --access public",
+    "update-jmaguirrei": "ncu -u '/^@jmaguirrei.*$/' && npm install",
     "test": "node tests.js"
   },
-  "author": "José Manuel Aguirre",
-  "license": "MIT",
   "devDependencies": {
+    "babel-core": "^6.26.3",
     "babel-preset-env": "^1.7.0",
-    "babel-register": "^6.26.0",
-    "babel-preset-stage-2": "^6.24.1"
+    "babel-preset-stage-2": "^6.24.1",
+    "babel-register": "^6.26.0"
   }
 }
